@@ -18,9 +18,13 @@ public class Main {
 		      //customer.addReview();
 		      //customer.viewdetailProduct();
 		      customer.viewCart();
+		      //customer.buyProducts();
+		      customer.viewProductsBought();
 			  //seller.signinSeller();
 			  //seller.loginSeller();
 			  //seller.addProducts();
+		      //seller.deleteProducts();
+		      //seller.updateProducts();
 			  //seller.viewProducts();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

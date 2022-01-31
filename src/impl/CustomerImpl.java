@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import interfaces.Customers;
@@ -226,7 +227,7 @@ public class CustomerImpl implements Customers {
 			//System.out.println("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
 	        	//	+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
 	        ResultSet rs=stmt.executeQuery("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
-	        		+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
+	        		+ "PRODUCTS p ON p.product_id=c.product_id WHERE bought=false AND c.customer_id='"+cd.getCustomer_ID()+"'");
 	        while(rs.next())
 	        {
 	        	System.out.println("|"+rs.getString(1)+"|"+"|"+rs.getString(2)+"| "+rs.getFloat(3)+" |");
@@ -283,13 +284,77 @@ public class CustomerImpl implements Customers {
 
 	@Override
 	public void buyProducts() throws SQLException {
-		// TODO Auto-generated method stub
+		ArrayList<String> al =new ArrayList<String>();
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ecomm","root","ankit");
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Statement stmt=con.createStatement();
+			//System.out.println("SELECT product_id FROM CARTS WHERE customer_id='"+cd.getCustomer_ID()+"'");
+        ResultSet rs=stmt.executeQuery("SELECT product_id FROM CARTS WHERE customer_id='"+cd.getCustomer_ID()+"'");
+		while(rs.next())
+		{
+			al.add(rs.getString(1));
+		}
+		for(int i=0;i<al.size();i++)
+		{
+			stmt.executeUpdate("INSERT INTO SALES(product_id,customer_id) VALUES('"+
+					  al.get(i)+"','"+cd.getCustomer_ID()+"')");
+		}
+		for(int i=0;i<al.size();i++)
+		{
+			//System.out.println("UPDATE CARTS SET bought=true WHERE product_id='"+
+					  //al.get(i)+"' AND customer_id='"+cd.getCustomer_ID()+"'");
+			stmt.executeUpdate("UPDATE CARTS SET bought=true WHERE product_id='"+al.get(i)+"' AND customer_id='"+cd.getCustomer_ID()+"'");
+			//System.out.println("UPDATE PRODUCTS SET quantity=quantity-1 WHERE product_id='"+
+					  //al.get(i)+"'");
+			stmt.executeUpdate("UPDATE PRODUCTS SET quantity=quantity-1 WHERE product_id='"+
+					  al.get(i)+"'");
+		}
 		
+		}
+		catch(Exception e1)
+		{
+			System.out.println("Error Occured:");
+			e1.printStackTrace();
+			
+		}		
+		finally {
+			
+			con.close();
+			System.out.println("Items are bought sucessfully\n");
+		}
 	}
 
 	@Override
 	public void viewProductsBought() throws SQLException {
-		// TODO Auto-generated method stub
+		System.out.println("Order View");
+		System.out.println("--------------------");
+		System.out.println("| product_id |  product_name | price |");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ecomm","root","ankit");
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Statement stmt=con.createStatement();
+			//System.out.println("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
+	        	//	+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
+	        ResultSet rs=stmt.executeQuery("SELECT s.product_id,p.product_name,p.price FROM sales s INNER JOIN "
+	        		+ "PRODUCTS p ON p.product_id=s.product_id WHERE s.customer_id='"+cd.getCustomer_ID()+"'");
+	        while(rs.next())
+	        {
+	        	System.out.println("|"+rs.getString(1)+"|"+"|"+rs.getString(2)+"| "+rs.getFloat(3)+" |");
+	        }
+	        
+		}
+		catch(Exception e1)
+		{
+			e1.printStackTrace();
+			
+		}		
+		finally {
+			
+			con.close();
+			System.out.println("---------\n");
+		}
+	
 		
 	}
 
