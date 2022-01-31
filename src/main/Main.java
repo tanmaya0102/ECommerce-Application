@@ -2,14 +2,26 @@ package main;
 
 import java.sql.SQLException;
 
-import impl.SellersImpl;
+import impl.CustomerImpl;
+import impl.SellerImpl;
+import interfaces.Customers;
 import interfaces.Sellers;
 
 public class Main {
 	public static void main(String[] args) {
-		Sellers seller=new SellersImpl();
+		Customers customer=new CustomerImpl();
+		//Sellers seller=new SellerImpl();
 		try {
-		      seller.loginSeller();
+			  //customer.signinCustomer();
+		      customer.loginCustomer();
+		      customer.viewProducts();
+		      //customer.addReview();
+		      //customer.viewdetailProduct();
+		      customer.addtoCart();
+			  //seller.signinSeller();
+			  //seller.loginSeller();
+			  //seller.addProducts();
+			  //seller.viewProducts();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

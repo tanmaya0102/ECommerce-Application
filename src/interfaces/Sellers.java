@@ -8,10 +8,12 @@ public interface Sellers {
 	
 	public boolean loginSeller() throws SQLException;
 	
-	public void addProducts();
+	public void addProducts() throws SQLException;
 	
-	public void deleteProducts();
+	public void deleteProducts() throws SQLException;
 	
-	public void updateProducts();
+	public void updateProducts() throws SQLException;
+	
+	public void viewProducts() throws SQLException;
 	
 }
