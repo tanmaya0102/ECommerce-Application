@@ -223,13 +223,13 @@ public class CustomerImpl implements Customers {
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Statement stmt=con.createStatement();
-			System.out.println("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
-	        		+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
+			//System.out.println("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
+	        	//	+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
 	        ResultSet rs=stmt.executeQuery("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
 	        		+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
 	        while(rs.next())
 	        {
-	        	System.out.println("|"+rs.getInt(1)+"|"+"|"+rs.getString(2)+"| "+rs.getFloat(3)+" |");
+	        	System.out.println("|"+rs.getString(1)+"|"+"|"+rs.getString(2)+"| "+rs.getFloat(3)+" |");
 	        }
 	        
 		}
