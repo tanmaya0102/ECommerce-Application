@@ -1,25 +1,18 @@
 package main;
 
-import java.sql.SQLException;
-
-import impl.CustomerImpl;
-import impl.SellerImpl;
-import interfaces.Customers;
-import interfaces.Sellers;
-
 public class Main {
-	public static void main(String[] args) {
-		Customers customer=new CustomerImpl();
+	//public static void main(String[] args) {
+		//Customers customer=new CustomerImpl();
 		//Sellers seller=new SellerImpl();
-		try {
+		/*try {
 			  //customer.signinCustomer();
-		      customer.loginCustomer();
-		      customer.viewProducts();
+		      //customer.loginCustomer();
+		      //customer.viewProducts();
 		      //customer.addReview();
 		      //customer.viewdetailProduct();
-		      customer.viewCart();
+		      //customer.viewCart();
 		      //customer.buyProducts();
-		      customer.viewProductsBought();
+		      //customer.viewProductsBought();
 			  //seller.signinSeller();
 			  //seller.loginSeller();
 			  //seller.addProducts();
@@ -31,5 +24,5 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
-
+*/
 }
