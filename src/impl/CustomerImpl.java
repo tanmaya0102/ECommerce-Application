@@ -216,7 +216,33 @@ public class CustomerImpl implements Customers {
 
 	@Override
 	public void viewCart() throws SQLException {
-		// TODO Auto-generated method stub
+		System.out.println("Cart View");
+		System.out.println("--------------------");
+		System.out.println("| product_id |  product_name | price |");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ecomm","root","ankit");
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Statement stmt=con.createStatement();
+			System.out.println("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
+	        		+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
+	        ResultSet rs=stmt.executeQuery("SELECT c.product_id,p.product_name,p.price FROM CARTS c INNER JOIN "
+	        		+ "PRODUCTS p ON p.product_id=c.product_id WHERE c.customer_id='"+cd.getCustomer_ID()+"'");
+	        while(rs.next())
+	        {
+	        	System.out.println("|"+rs.getInt(1)+"|"+"|"+rs.getString(2)+"| "+rs.getFloat(3)+" |");
+	        }
+	        
+		}
+		catch(Exception e1)
+		{
+			e1.printStackTrace();
+			
+		}		
+		finally {
+			
+			con.close();
+			System.out.println("---------\n");
+		}
 		
 	}
 

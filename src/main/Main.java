@@ -17,7 +17,7 @@ public class Main {
 		      customer.viewProducts();
 		      //customer.addReview();
 		      //customer.viewdetailProduct();
-		      customer.addtoCart();
+		      customer.viewCart();
 			  //seller.signinSeller();
 			  //seller.loginSeller();
 			  //seller.addProducts();
